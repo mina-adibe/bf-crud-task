@@ -1,6 +1,5 @@
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import React from "react";
-import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -9,20 +8,20 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import EditIcon from "@mui/icons-material/Edit";
 
-// deletePostRequest, editPostRequest,
 const Posts = ({ posts }) => {
+  const [pageSize, setPageSize] = React.useState(10);
+
   const { enqueueSnackbar } = useSnackbar();
+  const dispatch = useDispatch();
   let navigate = useNavigate();
 
-  const dispatch = useDispatch();
-
   const columns = [
-    { field: "id", headerName: "ID", width: 70 },
-    { field: "userId", headerName: "user Id", width: 70 },
+    { field: "id", headerName: "ID", flex: 0.5 },
+    { field: "userId", headerName: "user Id", flex: 0.5 },
     {
       field: "title",
+      flex: 1.5,
       headerName: "title",
-      width: 180,
       renderCell: (params) => {
         return (
           <div>
@@ -37,12 +36,13 @@ const Posts = ({ posts }) => {
         );
       },
     },
-    { field: "body", headerName: "body", width: 180 },
+    { field: "body", headerName: "body", flex: 1.5 },
 
     {
       field: "actions",
       type: "actions",
-      width: 80,
+      headerName: "Actions",
+      flex: 0.5,
       getActions: (params) => {
         return [
           <GridActionsCellItem
@@ -69,10 +69,17 @@ const Posts = ({ posts }) => {
   ];
 
   return (
-    <Box sx={{ height: "70vh", width: "70vw" }}>
-      <h1>Posts</h1>
-      <DataGrid rows={posts} columns={columns} pageSize={10} rowsPerPageOptions={[5]} />
-    </Box>
+    <Container>
+      <Box sx={{ height: "70vh" }}>
+        <DataGrid
+          rows={posts}
+          columns={columns}
+          rowsPerPageOptions={[10, 20]}
+          pageSize={pageSize}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+        />
+      </Box>
+    </Container>
   );
 };
 
