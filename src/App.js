@@ -8,6 +8,7 @@ import RoutesComponent from "./routes/Routes";
 import { SnackbarProvider } from "notistack";
 import { getPostsRequest } from "./store/actions/index.js";
 import Loader from "./component/loader/Loader.js";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ function App() {
         horizontal: "left",
       }}>
       <MainLayout>
+        <CssBaseline />
         <RoutesComponent />
         {loader && <Loader />}
       </MainLayout>
@@ -34,30 +36,3 @@ function App() {
 }
 
 export default App;
-
-// <div>
-// heloooo
-// <div>
-//   <button
-//     onClick={() => {
-//       dispatch(deletePostRequest(2));
-//     }}>
-//     delete
-//   </button>
-// </div>
-// <div>
-//   <button
-//     onClick={() => {
-//       dispatch(
-//         editPostRequest({
-//           body: "Minaaaaaaaaaaaaaaaa",
-//           id: 3,
-//           title: "Hello here title",
-//           userId: 1,
-//         })
-//       );
-//     }}>
-//     update
-//   </button>
-// </div>
-// </div>
