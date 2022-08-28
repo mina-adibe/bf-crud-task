@@ -9,11 +9,11 @@ const style = {
   top: "50%",
   left: "50%",
   transform: "translate(-50%, -50%)",
-  width: 400,
+  width: 300,
   bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
+  border: "1px solid #000",
+  boxShadow: 10,
+  p: 2,
 };
 
 const DeleteModal = ({ handleClose, postId, deletePostRequest, open }) => {
@@ -35,8 +35,10 @@ const DeleteModal = ({ handleClose, postId, deletePostRequest, open }) => {
             Are you sure ?
           </Typography>
 
-          <Box sx={{ display: "flex", gap: "30px" }}>
+          <Box sx={{ display: "flex", gap: "30px", my: "20px" }}>
             <Button
+              color="error"
+              variant="contained"
               onClick={() => {
                 dispatch(deletePostRequest(postId));
                 enqueueSnackbar("one recorde deleted ", { variant: "warning" });
@@ -44,7 +46,9 @@ const DeleteModal = ({ handleClose, postId, deletePostRequest, open }) => {
               }}>
               Delete
             </Button>
-            <Button onClick={() => handleClose()}>Cancel</Button>
+            <Button variant="contained" color="success" onClick={() => handleClose()}>
+              Cancel
+            </Button>
           </Box>
         </Box>
       </Modal>
