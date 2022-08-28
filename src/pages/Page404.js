@@ -1,10 +1,11 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
 const Page404 = () => {
   return (
-    <div>
-      <h1>Page not found</h1>
-    </div>
+    <Typography align="center" gutterBottom variant="h4" component="div" sx={{ mt: "50px" }}>
+      Sorry, Page not found
+    </Typography>
   );
 };
 
