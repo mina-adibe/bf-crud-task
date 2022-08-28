@@ -1,3 +1,4 @@
+import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Posts from "../component/posts/Posts";
@@ -22,8 +23,10 @@ const Home = () => {
 
   return (
     <>
-      <Search handleChange={handleChange} />
-      <Posts posts={searchResults} />
+      <Container>
+        <Search handleChange={handleChange} />
+        <Posts posts={searchResults} />
+      </Container>
     </>
   );
 };

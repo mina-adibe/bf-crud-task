@@ -14,7 +14,7 @@ const Search = ({ handleChange }) => {
               p: "2px 4px",
               display: "flex",
               alignItems: "center",
-              width: "70%",
+              width: "35vw",
               my: "20px",
               mx: "auto",
             }}>
@@ -23,7 +23,7 @@ const Search = ({ handleChange }) => {
             </IconButton>
             <InputBase
               sx={{ ml: 1, flex: 1 }}
-              placeholder="Search github users"
+              placeholder="Search posts"
               onChange={handleChange}
               name="search"
               inputProps={{ "aria-label": "Search posts by body or title" }}

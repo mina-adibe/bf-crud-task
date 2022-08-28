@@ -22,8 +22,6 @@ const ViewEditpostDetail = () => {
 
   function onSubmit(values) {
     if (mode === "edit") {
-      console.log("values", values);
-
       dispatch(editPostRequest(values));
       navigate("/");
       enqueueSnackbar("one recorde updated ", { variant: "success" });
@@ -67,7 +65,7 @@ const ViewEditpostDetail = () => {
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <form onSubmit={handleSubmit}>
         <h1>
-          {data && mode === "edit" ? `Edit User ${data?.id}` : `View User ${data?.id} (Read only)`}
+          {data && mode === "edit" ? `Edit Post ${data?.id}` : `View Post ${data?.id} (Read only)`}
         </h1>
 
         <Box
