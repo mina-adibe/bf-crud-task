@@ -1,22 +1,27 @@
 /* eslint-disable react/jsx-key */
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Container } from "@mui/material";
-import { useDispatch } from "react-redux";
+
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useSnackbar } from "notistack";
+
 import EditIcon from "@mui/icons-material/Edit";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 
 import { deletePostRequest } from "../../store/actions";
 import { Link, useNavigate } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
 
 const Posts = ({ posts }) => {
+  const [postId, setPostId] = useState("");
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [pageSize, setPageSize] = React.useState(10);
 
-  const { enqueueSnackbar } = useSnackbar();
-  const dispatch = useDispatch();
   let navigate = useNavigate();
 
   const columns = [
@@ -73,8 +78,8 @@ const Posts = ({ posts }) => {
           icon={<DeleteIcon sx={{ color: "red" }} />}
           label="Delete"
           onClick={() => {
-            dispatch(deletePostRequest(params.row.id));
-            enqueueSnackbar("one recorde deleted ", { variant: "warning" });
+            setPostId(params.row.id);
+            handleOpen();
           }}
         />,
       ],
@@ -92,6 +97,12 @@ const Posts = ({ posts }) => {
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
         />
       </Box>
+      <DeleteModal
+        handleClose={handleClose}
+        postId={postId}
+        deletePostRequest={deletePostRequest}
+        open={open}
+      />
     </Container>
   );
 };
