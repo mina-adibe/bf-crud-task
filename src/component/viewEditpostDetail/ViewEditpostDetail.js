@@ -5,13 +5,13 @@ import { useFormik } from "formik";
 
 import useAxios from "../../hooks/useAxios";
 import { validationSchema } from "./validationSchema";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { editPostRequest } from "../../store/actions";
 import { useSnackbar } from "notistack";
 
 const initialValues = { id: "", userId: "", title: "", body: "" };
 
-const PostDetail = () => {
+const ViewEditpostDetail = () => {
   const { id } = useParams();
   let location = useLocation();
   let navigate = useNavigate();
@@ -46,10 +46,29 @@ const PostDetail = () => {
   if (error) {
     return <h2 style={{ color: "red" }}> {error}</h2>;
   }
+  const editModeBtns = (
+    <Box sx={{ display: "flex", justifyContent: "center", gap: "20px" }}>
+      <Button color="primary" variant="contained" onClick={() => navigate("/")}>
+        Cancel
+      </Button>
+      <Button color="primary" variant="contained" type="submit">
+        save
+      </Button>
+    </Box>
+  );
+  const viewModeBtns = (
+    <Box>
+      <Button color="primary" variant="contained" fullWidth onClick={() => navigate("/")}>
+        Go back
+      </Button>
+    </Box>
+  );
   return (
     <Box sx={{ display: "flex", justifyContent: "center" }}>
       <form onSubmit={handleSubmit}>
-        <h1>{data && mode === "edit" ? `Edit User ${data?.id}` : `View User ${data?.id}`}</h1>
+        <h1>
+          {data && mode === "edit" ? `Edit User ${data?.id}` : `View User ${data?.id} (Read only)`}
+        </h1>
 
         <Box
           sx={{
@@ -69,6 +88,7 @@ const PostDetail = () => {
             onChange={handleChange}
             error={touched.id && Boolean(errors.id)}
             helperText={touched.id && errors.id}
+            inputProps={{ readOnly: true }}
           />
           <TextField
             variant="filled"
@@ -80,6 +100,7 @@ const PostDetail = () => {
             onChange={handleChange}
             error={touched.userId && Boolean(errors.userId)}
             helperText={touched.userId && errors.userId}
+            inputProps={{ readOnly: true }}
           />
 
           <TextField
@@ -90,6 +111,7 @@ const PostDetail = () => {
             label="title"
             value={values.title}
             onChange={handleChange}
+            inputProps={{ readOnly: mode === "edit" ? false : true }}
             error={touched.title && Boolean(errors.title)}
             helperText={touched.title && errors.title}
           />
@@ -102,31 +124,15 @@ const PostDetail = () => {
             type="body"
             value={values.body}
             onChange={handleChange}
+            inputProps={{ readOnly: mode === "edit" ? false : true }}
             error={touched.body && Boolean(errors.body)}
             helperText={touched.body && errors.body}
           />
-          <Box>
-            {mode === "edit" ? (
-              <Box sx={{ display: "flex", justifyContent: "center", gap: "20px" }}>
-                <Button color="primary" variant="contained" onClick={() => navigate("/")}>
-                  Cancel
-                </Button>
-                <Button color="primary" variant="contained" type="submit">
-                  save
-                </Button>
-              </Box>
-            ) : (
-              <Box>
-                <Button color="primary" variant="contained" fullWidth onClick={() => navigate("/")}>
-                  Go back
-                </Button>
-              </Box>
-            )}
-          </Box>
+          <Box>{mode === "edit" ? editModeBtns : viewModeBtns}</Box>
         </Box>
       </form>
     </Box>
   );
 };
 
-export default PostDetail;
+export default ViewEditpostDetail;
