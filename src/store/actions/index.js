@@ -32,15 +32,6 @@ export const editPostRequest = (data) => ({
   payload: data,
 });
 
-export const notificationSucceed = (message) => ({
-  type: types.NOTIFICATION_REQUEST_SUCCEED,
-  message,
-});
-
-export const notificationFail = () => ({
-  type: types.NOTIFICATION_REQUEST_FAIL,
-});
-
 export const setLoader = (payload) => ({
   type: types.SET_LOADER,
   payload,
