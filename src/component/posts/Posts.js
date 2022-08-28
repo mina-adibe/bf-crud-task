@@ -5,10 +5,12 @@ import { Box, Container } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deletePostRequest } from "../../store/actions";
-import { Link, useNavigate } from "react-router-dom";
 import { useSnackbar } from "notistack";
 import EditIcon from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+
+import { deletePostRequest } from "../../store/actions";
+import { Link, useNavigate } from "react-router-dom";
 
 const Posts = ({ posts }) => {
   const [pageSize, setPageSize] = React.useState(10);
@@ -47,21 +49,32 @@ const Posts = ({ posts }) => {
       flex: 0.5,
       getActions: (params) => [
         <GridActionsCellItem
-          icon={<DeleteIcon />}
-          label="Delete"
+          icon={<VisibilityIcon sx={{ color: "green" }} />}
+          label="view"
           onClick={() => {
-            dispatch(deletePostRequest(params.row.id));
-            enqueueSnackbar("one recorde deleted ", { variant: "warning" });
+            navigate({
+              pathname: `post/${params.row.id}`,
+              search: "?mode=view",
+            });
           }}
         />,
+
         <GridActionsCellItem
-          icon={<EditIcon />}
+          icon={<EditIcon sx={{ color: "darkblue" }} />}
           label="edit"
           onClick={() => {
             navigate({
               pathname: `post/${params.row.id}`,
               search: "?mode=edit",
             });
+          }}
+        />,
+        <GridActionsCellItem
+          icon={<DeleteIcon sx={{ color: "red" }} />}
+          label="Delete"
+          onClick={() => {
+            dispatch(deletePostRequest(params.row.id));
+            enqueueSnackbar("one recorde deleted ", { variant: "warning" });
           }}
         />,
       ],
