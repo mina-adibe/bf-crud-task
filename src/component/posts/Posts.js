@@ -10,12 +10,11 @@ import { useSnackbar } from "notistack";
 import EditIcon from "@mui/icons-material/Edit";
 
 // deletePostRequest, editPostRequest,
-const Posts = () => {
+const Posts = ({ posts }) => {
   const { enqueueSnackbar } = useSnackbar();
   let navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const posts = useSelector((state) => state.posts);
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
@@ -40,16 +39,6 @@ const Posts = () => {
     },
     { field: "body", headerName: "body", width: 180 },
 
-    {
-      field: "fullName",
-      headerName: "Full name",
-      description: "This column has a value getter and is not sortable.",
-      sortable: false,
-      width: 160,
-      valueGetter: (params) => {
-        return `${params.row.id || ""} ${params.row.title || ""}`;
-      },
-    },
     {
       field: "actions",
       type: "actions",
@@ -80,14 +69,9 @@ const Posts = () => {
   ];
 
   return (
-    <Box style={{ height: 400, width: "100%" }}>
-      <DataGrid
-        rows={posts}
-        columns={columns}
-        pageSize={5}
-        rowsPerPageOptions={[5]}
-        checkboxSelection
-      />
+    <Box sx={{ height: "70vh", width: "70vw" }}>
+      <h1>Posts</h1>
+      <DataGrid rows={posts} columns={columns} pageSize={10} rowsPerPageOptions={[5]} />
     </Box>
   );
 };
