@@ -1,6 +1,6 @@
 import { put, call } from "redux-saga/effects";
 import { getData, deletePost, updatePost, getPostDeatils } from "../../network/apis";
-import { getPosts, notificationSucceed } from "../actions";
+import { getPosts } from "../actions";
 
 export function* getPostsSaga() {
   try {

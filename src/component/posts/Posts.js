@@ -1,5 +1,7 @@
-import { Box, Container } from "@mui/material";
+/* eslint-disable react/jsx-key */
 import React from "react";
+import PropTypes from "prop-types";
+import { Box, Container } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -43,28 +45,26 @@ const Posts = ({ posts }) => {
       type: "actions",
       headerName: "Actions",
       flex: 0.5,
-      getActions: (params) => {
-        return [
-          <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Delete"
-            onClick={() => {
-              dispatch(deletePostRequest(params.row.id));
-              enqueueSnackbar("one recorde deleted ", { variant: "warning" });
-            }}
-          />,
-          <GridActionsCellItem
-            icon={<EditIcon />}
-            label="edit"
-            onClick={() => {
-              navigate({
-                pathname: `post/${params.row.id}`,
-                search: "?mode=edit",
-              });
-            }}
-          />,
-        ];
-      },
+      getActions: (params) => [
+        <GridActionsCellItem
+          icon={<DeleteIcon />}
+          label="Delete"
+          onClick={() => {
+            dispatch(deletePostRequest(params.row.id));
+            enqueueSnackbar("one recorde deleted ", { variant: "warning" });
+          }}
+        />,
+        <GridActionsCellItem
+          icon={<EditIcon />}
+          label="edit"
+          onClick={() => {
+            navigate({
+              pathname: `post/${params.row.id}`,
+              search: "?mode=edit",
+            });
+          }}
+        />,
+      ],
     },
   ];
 
@@ -84,3 +84,7 @@ const Posts = ({ posts }) => {
 };
 
 export default Posts;
+
+Posts.propTypes = {
+  posts: PropTypes.array,
+};

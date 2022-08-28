@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 import store from "../../store";
 import { setLoader } from "../../store/actions";
 

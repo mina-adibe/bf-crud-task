@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { Box } from "@mui/system";
 import { Container, IconButton, InputBase, Paper } from "@mui/material";
 import PersonSearchIcon from "@mui/icons-material/PersonSearch";
@@ -36,3 +38,7 @@ const Search = ({ handleChange }) => {
 };
 
 export default Search;
+
+Search.propTypes = {
+  handleChange: PropTypes.func,
+};

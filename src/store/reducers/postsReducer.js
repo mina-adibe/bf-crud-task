@@ -7,8 +7,7 @@ export const postsReducer = (state = INITIAL_STATE.posts, action) => {
       return [...state, ...action.payload];
 
     case types.DELETE_POST_REQUEST:
-      const newState = state.filter((post) => post.id !== action.payload);
-      return newState;
+      return state.filter((post) => post.id !== action.payload);
 
     case types.EDIT_POST_REQUEST:
       return state.map((post) => (post.id === action.payload.id ? action.payload : post));
